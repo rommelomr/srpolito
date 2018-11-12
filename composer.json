@@ -1,0 +1,15 @@
+{
+    "name": "root/gimnasio-proyect",
+    "description": "Sistema de Gestion para el Gimnasio del IUTFRP Region Capital",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Rommel Montoya",
+            "email": "rommelmontoya97@gmail.com"
+        }
+    ],
+    "minimum-stability": "alpha",
+    "require": {
+        "Windwalker/Edge":"~3.0"
+    }
+}

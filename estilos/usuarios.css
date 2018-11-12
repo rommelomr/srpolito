@@ -1,0 +1,25 @@
+body{
+	background: black;
+}
+input{
+	margin-top:1%;
+	margin-bottom:1%;
+}
+#imagenFondo{
+
+	width:100%;
+}
+.container-fluid{
+	background: none;
+	position:absolute;
+}
+#titulo{
+	margin-top:2%;
+}
+#registrarUsuario{
+	margin-top: 5%;
+}
+
+#consultarUsuario{
+	margin-top: 5%;
+}

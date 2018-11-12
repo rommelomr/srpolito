@@ -1,0 +1,66 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "143e54a68508cc275f83f15dc7068314",
+    "content-hash": "e2cd71d8aab8e3bbcbf7caf91b23ff6a",
+    "packages": [
+        {
+            "name": "windwalker/edge",
+            "version": "3.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ventoviro/windwalker-edge.git",
+                "reference": "1bd127cbf657e8e8c9c8061bc35490a7f80d7c61"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ventoviro/windwalker-edge/zipball/1bd127cbf657e8e8c9c8061bc35490a7f80d7c61",
+                "reference": "1bd127cbf657e8e8c9c8061bc35490a7f80d7c61",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "windwalker/dom": "~3.0",
+                "windwalker/test": "~3.0"
+            },
+            "type": "windwalker-package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Windwalker\\Edge\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.0-or-later"
+            ],
+            "description": "Windwalker Edge package, a blade compatible template engine.",
+            "homepage": "https://github.com/ventoviro/windwalker-edge",
+            "keywords": [
+                "edge",
+                "engine",
+                "framework",
+                "template",
+                "windwalker"
+            ],
+            "time": "2018-07-07 03:26:37"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "alpha",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

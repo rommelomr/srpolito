@@ -1,0 +1,120 @@
+*{
+	margin:0;
+	padding:0;
+}
+body{
+	background: #DAD8D5;
+	
+}
+.letra-grande{
+	font-size: 500%;
+}
+.letra-mediana{
+	font-size: 250%;
+}
+
+.boton{
+	border-radius: 5px 5px 5px 5px;
+}
+
+.boton-amarillo{
+	background:gold;
+	color:brown;
+	border-color: grey;}
+
+.boton-amarillo:hover{
+	background:goldenrod;
+	color:white;
+	border-color: grey;}
+
+.boton-azul{
+	background:blue;
+	color:white;
+	border-color: grey;}
+
+.boton-azul:hover{
+	background:darkblue;
+	color:white;
+	border-color: grey;}
+
+.boton-rojo{
+	background:red;
+	color:white;
+	border-color: grey;}
+
+.boton-rojo:hover{
+	background:darkred;
+	color:white;
+	border-color: grey;}
+
+.boton-verde{
+	background:green;
+	color:white;
+	border-color: grey;}
+
+.boton-verde:hover{
+	background:darkgreen;
+	color:white;
+	border-color: grey;}
+
+.boton-naranja{
+	background:orange;
+	color:brown;
+	border-color: grey;}
+
+.boton-naranja:hover{
+	background:brown;
+	color:white;
+	border-color: grey;}
+
+.boton-morado{
+	background:purple;
+	color:white;
+	border-color: grey;}
+
+.boton-morado:hover{
+	background:indigo;
+	color:white;
+	border-color: grey;}
+
+.boton-marron{
+	background:brown;
+	color:white;
+	border-color: grey;}
+
+.boton-marron:hover{
+	background:black;
+	color:white;
+	border-color: grey;}
+
+.boton-blanco{
+	background:white;
+	color:black;
+	border-color: grey;}
+
+.boton-blanco:hover{
+	transition: 0.3s;
+	background: grey;}
+
+.boton-negro{
+	background:black;
+	color:white;
+	border-color: grey;}
+
+.boton-negro:hover{
+	transition: 0.3s;
+	background: grey;
+	color:black;}
+
+
+.boton-mediano{
+	
+	padding:3%;}
+
+.boton-grande{
+	padding:5%;
+	font-size: 100%;}
+
+.boton-extraGrande{
+	padding:10%;
+	font-size: 150%;}

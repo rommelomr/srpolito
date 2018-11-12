@@ -1,0 +1,17 @@
+ETFrame Version 1
+Desarrollado por:
+Rommel Omar Montoya Rodriguez
+email: rommelmontoya97@gmail.com
+
+
+-Coloque la carpeta del framework en la raiz del servidor
+
+-Asignele el nombre que usted desee para su sistema
+
+-Dirijase a la carpeta "utilidades/errores/Instrucciones Errores" para configurar el manejo de errores del sistema.
+
+	Configurar .htaccess y error.php:
+
+		Los archivos ".htaccess" y "error.php" deben estar en la raiz del servidor. 
+
+		En "error.php", debe configurarse la funcion "header("Location:")" y colocar la ubicacion del index del sistema, partiendo de que se empezará a buscar desde la raiz del servidor.

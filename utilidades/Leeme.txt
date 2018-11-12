@@ -1,0 +1,13 @@
+Librerias ya incluidas
+	Bootstrap 4.1
+		JQuery 3.3.1
+		pooper 1.14.3
+		Font Awesome Free 5.0.13
+
+	bootstrap-vue
+		tether
+		Vue.js v2.5.16
+
+Librerias disponibles
+	Materialize v1.0.0-beta
+	polyfill

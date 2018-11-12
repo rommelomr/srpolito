@@ -1,0 +1,52 @@
+EDITORIALES:
+	Tabla que guaradá el nombre de las editoriales de los libros
+
+CATEGORIAS:
+	Tabla que guaradá el nombre de las categorias de los libros
+
+AUTORES:
+	Tabla que guaradá el nombre de los autores de los libros
+
+LIBROS:
+	Tabla que guaradá los datos de los libros
+		nombre y numero de paginas
+
+PERSONAS:
+	Tabla que guaradá los datos de las personas
+		nombre, cedula
+		tipo (E para "estudiante", O para "obrero", D para "docente", A para "administrativo")
+		deuda (P para "pendiente", D para "al día")
+
+USUARIOS:
+	Tabla que guarda los datos de usuario del sistema. Estará relacionado a los datos de persona
+
+CATEGORIAS_LIBROS:
+	Tabla que relaciona varios libros con varias categorias
+
+AUTORES_LIBROS:
+	Tabla que relaciona varios libros con varios autores
+
+PRESTAMOS_PERSONAS
+
+	Tabla que guarda de las personas involucradas en un prestamo.
+
+		-id_persona_responsable: id de la persona que prestó el libro
+
+		-id_persona_solicitante: id de la persona a la que se le presto el libro
+
+PRESTAMOS_LIBROS
+	
+	Tabla que identifica los libros asociados a un préstamo
+
+		-id_libro: id del libro que se prestó
+
+		-id_libro: id del préstamo asociado
+
+		-fecha_prestamo: fecha en que se prestó el libro
+
+		-fecha_devolucion: fecha en que se devolvió el libro
+
+
+
+
+

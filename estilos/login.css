@@ -1,0 +1,25 @@
+#cajaLogin{
+	border-radius: 3px 3px 3px 3px;
+	padding: 5%;
+	margin-top: 30%;
+
+	background: silver;
+
+}
+#enviar{
+	margin-top: 5%;
+}
+#registrarse{
+	color:white;
+}
+.datosIncorrectos{
+	color:red;
+}
+#imagenFondo{
+	width:100%;
+	
+}
+.container-fluid{
+	background: none;
+	position:absolute;
+}
