@@ -1,7 +1,7 @@
 <?php
 	require_once "utilidades/funciones.php";
-	define('user','root');
-	define('pass','');
+	define('usuario','root');
+	define('clave','');
 	define('gestor','mysql');
 	define('host','localhost');
 	define('bd','biblioteca');

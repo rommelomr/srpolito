@@ -9,7 +9,7 @@
 
 
 		public static function comun($com){
-			require_once('vistas/comunes/'.$com.'.blade.php');
+			Accion::cargarPagina('comunes',$com);
 		}
 
 		

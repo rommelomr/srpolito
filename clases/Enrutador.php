@@ -38,6 +38,9 @@
 
 
 		];
+		public static function cargar_nuevo(){
+
+		}
 		public static function cargar(){
 
 			if(PGSC('petAjax')!==0){

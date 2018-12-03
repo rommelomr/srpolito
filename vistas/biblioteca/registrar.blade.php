@@ -2,6 +2,6 @@
 <title>Festival Hallyu Venezuela</title>
 </head>
 <body>
-
+	{{Crear::comun('menu_modal')}}
 </body>
 </html>	  

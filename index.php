@@ -5,6 +5,6 @@
 	require_once "utilidades/cabeceraHtml.php";
 
 
-	Enrutador::cargar();	
+	Enrutador::cargar();
 
 ?>

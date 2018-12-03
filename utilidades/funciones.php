@@ -1,4 +1,7 @@
 <?php 
+	function ruta($mod='',$pag=""){
+		echo './?mod='.$mod.'/'.$pag;
+	}
 	function incluirComponente($arr=null){
 		
 		if (($arr != null)){

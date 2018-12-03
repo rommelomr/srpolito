@@ -46,7 +46,7 @@
 			</div>
 			
 		</div>
-		
+		{{Crear::comun('menu_modal')}}
 	</div>
 </body>
 </html>	  

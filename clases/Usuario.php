@@ -3,80 +3,79 @@
 	class Usuario{
 
 		private $usuario;
-		private $contrasena;
+		private $clave;
 		private $permisos;
 		private $estado;
 
 
-		public function getUsuario(){
+		public function get_usuario(){
 
 			return $this->usuario;}
 
-		public function getContrasena(){
+		public function get_clave(){
 
-			return $this->contrasena;}
+			return $this->clave;}
 
-		public function getPermisos(){
+		public function get_permisos(){
 
 			return $this->permisos;}
 
-		public function getEstado(){
+		public function get_estado(){
 
 			return $this->estado;}
 
-		private function setUsuario($usu){
+		private function set_usuario($usu){
 
 			$this->usuario=$usu;}
 
-		private function setContrasena($con){
+		private function set_clave($cla){
 
-			$this->contrasena=$con;}
+			$this->clave=$cla;}
 
-		private function setPermisos($per){
+		private function set_permisos($per){
 
 			$this->permisos=$per;}		
 
-		private function setEstado($est){
+		private function set_estado($est){
 
 			$this->estado=$est;}		
 
-		public function __construct($usu,$con=null,$per=null,$est=null){
+		public function __construct($usu,$cla=null,$per=null,$est=null){
 
-			$this->setUsuario($usu);
-			$this->setContrasena($con);
-			$this->setPermisos($per);
-			$this->setEstado($est);
+			$this->set_usuario($usu);
+			$this->set_clave($cla);
+			$this->set_permisos($per);
+			$this->set_estado($est);
 
 		}
 
 
 		////////////////////////////////////////////////////////////////////////
 
-		public function crearUsuario(){
-			//Funcion que registra un usuario en la base de datos. Devuelve 1 si lo registró, 0 si no lo hizo.
+		public function crear_usuario(){
+
+			//Método que registra un usuario en la base de datos. Devuelve 1 si lo registró, 0 en caso contrario
 			$con = new Conexion();
-			return $con->enviar ( "insert into usuario (usuario,contrasena,permisos,estado) values (:usuario,:contrasena,:permisos,:estado)",
-				array('usuario'=>$this->getUsuario(),'contrasena'=>password_hash($this->getContrasena(),PASSWORD_BCRYPT),'permisos'=>$this->getPermisos(),'estado'=>$this->getEstado()));
+			return $con->
+				enviar("insert into usuario (usuario,clave,permisos,estado) values (:usuario,:clave,:permisos,:estado)"
+
+				,array('usuario'=>$this->get_usuario()
+						,'clave'=>password_hash($this->get_clave(),PASSWORD_BCRYPT)
+						,'permisos'=>$this->get_permisos()
+						,'estado'=>$this->get_estado())
+					);
 
 		}
 
-		public function extraerUsuario(){
+		public function consultar_usuario(){
 			$con = new Conexion();
 
-			return $con->extraer('select * from usuario where usuario = :usuario',array('usuario'=>$this->getUsuario()));
-
-
+			return $con->
+				extraer('select usuario, clave, permisos, estado from usuario where usuario = :usuario',
+					array(
+						'usuario'=>$this->get_usuario())
+				);
 		}
-		public function verificarContrasena($con){
-
-			//pasword_verify(); comprueba si un string pertenece a una clave encriptada
-			//recibe como parametros la contraseña sin encriptar y luego la contraseña encriptada
-			//devuelve true si coinciden, false si no
-
-			return password_verify($this->getContrasena(),$con);
-
-		}
-
 	}
 
 

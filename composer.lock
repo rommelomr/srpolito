@@ -1,24 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "143e54a68508cc275f83f15dc7068314",
     "content-hash": "e2cd71d8aab8e3bbcbf7caf91b23ff6a",
     "packages": [
         {
             "name": "windwalker/edge",
-            "version": "3.4.2",
+            "version": "3.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ventoviro/windwalker-edge.git",
-                "reference": "1bd127cbf657e8e8c9c8061bc35490a7f80d7c61"
+                "reference": "391e14b1eec7f7eda3f31aa9ae0c4b777d3dcb52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ventoviro/windwalker-edge/zipball/1bd127cbf657e8e8c9c8061bc35490a7f80d7c61",
-                "reference": "1bd127cbf657e8e8c9c8061bc35490a7f80d7c61",
+                "url": "https://api.github.com/repos/ventoviro/windwalker-edge/zipball/391e14b1eec7f7eda3f31aa9ae0c4b777d3dcb52",
+                "reference": "391e14b1eec7f7eda3f31aa9ae0c4b777d3dcb52",
                 "shasum": ""
             },
             "require": {
@@ -52,7 +51,7 @@
                 "template",
                 "windwalker"
             ],
-            "time": "2018-07-07 03:26:37"
+            "time": "2018-12-02T04:59:44+00:00"
         }
     ],
     "packages-dev": [],
