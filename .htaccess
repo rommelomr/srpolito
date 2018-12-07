@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+
+    RewriteEngine On
+    RewriteRule (^[a-zA-Z/]+$) index.php?mod=$1
+
+</IfModule>

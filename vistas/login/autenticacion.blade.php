@@ -1,26 +1,25 @@
-<?php !isset($system)? header('Location:../../'):0;?>
 <title>Autenticación</title>
 </head>
-<body style="background-image: url('utilidades/imagenes/libros.jpg')">
+<body style="background-image: url('{{utilidades}}/imagenes/libros.jpg'); background-size: 100%;">
 
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-md-4">
 
-				<div class="card col-12" style="padding:6%;margin-top:20%;">
+				<div class="card col-12" style="padding:2%;margin-top:20%;">
 					<div class="card-header">
 						<center>
-							
-							<b>AUTENTICACIÓN</b>
+							<b>Identificación</b>
 						</center>
 					</div>
 					<div class="card-body">
-						
-						<form>
-							<input class="form-control" type="text" name="usuario" placeholder="Usuario">
-							<input class="form-control" type="password" name="usuario" placeholder="Contraseña">
-
-						</form>
+						<center>
+							<form>
+								<input class="form-et col-md-12" type="text" name="user" placeholder="Usuario">
+								<input class="form-et col-md-12" type="password" name="pass" placeholder="Contraseña">
+								<button style="margin-top:5%;margin-bottom:0;" class="btn btn-red">Ingresar</button>
+							</form>
+						</center>
 					</div>
 					
 				</div>

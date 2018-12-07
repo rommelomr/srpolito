@@ -37,13 +37,14 @@ body{
 	color:white;
 	border-color: grey;}
 
-.boton-rojo{
-	background:red;
+.btn-red{
+	background:FireBrick;
 	color:white;
 	border-color: grey;}
 
-.boton-rojo:hover{
-	background:darkred;
+.btn-red:hover{
+
+	background:DarkRed;
 	color:white;
 	border-color: grey;}
 
@@ -118,3 +119,9 @@ body{
 .boton-extraGrande{
 	padding:10%;
 	font-size: 150%;}
+.form-et{
+	padding:3%;
+	border:1px solid;
+	border-color:grey;
+	border-radius:5px 5px 5px 5px;
+}

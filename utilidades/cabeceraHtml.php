@@ -17,18 +17,19 @@
 
 
 	-->
-	<link href="utilidades/fontawesome/css/all.min.css" rel="stylesheet">
-	
-	<link href="utilidades/MDB/css/bootstrap-material-design.css" rel="stylesheet">
 
-	<script src="utilidades/polyfill/polyfill.min.js"></script>
-	<script src="utilidades/jquery/jquery.min.js"></script>
-
-	<script src="utilidades/popper/Popper.js"></script>
+	<link href="<?php echo back; ?>utilidades/fontawesome/css/all.min.css" rel="stylesheet">
 	
-	<script src="utilidades/MDB/js/bootstrap-material-design.js"></script>
-	
-	<script src="scripts/funciones.js"></script>
+	<link href="<?php echo back; ?>utilidades/MDB/css/bootstrap-material-design.css" rel="stylesheet">
 
-	<link rel="stylesheet" type="text/css" href="estilos/general.css">
+	<script src="<?php echo back; ?>utilidades/polyfill/polyfill.min.js"></script>
+	<script src="<?php echo back; ?>utilidades/jquery/jquery.min.js"></script>
+
+	<script src="<?php echo back; ?>utilidades/popper/Popper.js"></script>
+	
+	<script src="<?php echo back; ?>utilidades/MDB/js/bootstrap-material-design.js"></script>
+	
+	<script src="<?php echo back; ?>scripts/funciones.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="<?php echo back; ?>estilos/general.css">
 	

@@ -2,6 +2,17 @@
 
 	class ControladorLogin{
 
+		private $user = [	//por defecto acepta letras, numeros, punto, guión y piso
+							'min'=>6,
+							'max'=>20,
+							'ndd'=>'a,1,*'//necesarios: al menos una letra, un numero y un simbolo
+						];
+		private $pass = [	//por defecto acepta letras, numeros, punto, guión y piso
+							'min'=>6,
+							'max'=>255,
+							'ndd'=>'a,1,*'//necesarios: al menos una letra, un numero y un simbolo
+						];
+
 		public static function autenticacion(){
 
 			Accion::cargarPagina('login','autenticacion');
@@ -26,10 +37,14 @@
 			header('Location:.');
 
 		}
+		private function validar_login(){
 
+		}
 		public static function iniciarSesion(){
+
 			$user[] =PGSC('usuario');
 			$user[] =PGSC('contrasena');
+
 			if((validarCampoUsuario($user[0]))&&($user[0]!=="")&&($user[1]!=="") ){
 
 				$usuario = new Usuario($user[0],$user[1]);

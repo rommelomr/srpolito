@@ -58,6 +58,8 @@
 
 			
 					$pag=obtenerPagina($dir);
+					
+					
 					$controlador=obtenerModulo($dir);
 
 					$tipoPagina = self::$tipo[$controlador][$pag][0];

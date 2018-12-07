@@ -1,4 +1,5 @@
 <?php 
+	
 	function ruta($mod='',$pag=""){
 		echo './?mod='.$mod.'/'.$pag;
 	}

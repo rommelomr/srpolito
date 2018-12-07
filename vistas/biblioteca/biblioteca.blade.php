@@ -1,4 +1,3 @@
-<?php !isset($system)? header('Location:../../'):0;?>
 <title>Principal</title>
 </head>
 <body>
