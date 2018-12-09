@@ -1,18 +1,8 @@
 <title>Permiso Denegado</title>
-<link rel="stylesheet" type="text/css" href="utilidades/errores/errEstilos.css">
+
 </head>
 <body>
-	<?php 
 
-
-		echo "
-		<div id='conImaPrincipal'>
-			<img id='imaPrincipal' src='utilidades/".Funciones::error(403)."' width='100%' height='100%'".">
-		</div>
-
-		";
-
-	?>
 	<div id="conPrincipal">
 		
 	<center>

@@ -38,9 +38,6 @@
 
 
 		];
-		public static function cargar_nuevo(){
-
-		}
 		public static function cargar(){
 
 			if(PGSC('petAjax')!==0){
@@ -51,84 +48,88 @@
 
 			}else{
 
+				if(isset($_GET['con'])){
 
-				$dir = PGSC('mod');
-	
-				if($dir!==0){
+					$controlador = $_GET['con'];
+					$metodo = $_GET['pag'];
 
-			
-					$pag=obtenerPagina($dir);
-					
-					
-					$controlador=obtenerModulo($dir);
+					if(isset(self::$tipo[$controlador][$metodo][0])){
+						$tipoPagina = self::$tipo[$controlador][$metodo][0];
+						$controlador = definirControlador($controlador);
 
-					$tipoPagina = self::$tipo[$controlador][$pag][0];
+						if ($tipoPagina===0){
 
-					$controlador = definirControlador($controlador);
-
-					if ($tipoPagina===0){
-
-						$controlador::$pag();
-
-					}else{
-
-						session_start();
-
-						if(verificarLogin()){
-
-							if($tipoPagina===1){
-								$permisos = definirTipoUsuario($_SESSION['permisos']);
-								$permisoConsedido = 0;
-								$mod=strtolower(substr($controlador,11,strlen($controlador)-10));
-
-								foreach (self::$tipo[$mod][$pag][1] as $clavePaginas => $valorPaginas) {
-
-
-
-									foreach ($permisos as $clavePermisos => $valorPermisos) {
-										if($valorPaginas==$valorPermisos){
-											$permisoConsedido = 1;
-											break;
-										}
-										
-									}
-								}
-
-							
-								if($permisoConsedido){
-
-									$controlador::$pag();
-								}else{
-
-									Accion::cargarPaginaError(403);
-								}
-								
-
-							}else if($tipoPagina===2){
-
-								header('Location:./?mod='.self::$default['mod'].'/'.self::$default['pag']);
-
-							}
+							$controlador::$metodo();
 
 						}else{
-							if($tipoPagina===1){
 
-							header('Location:./?mod='.self::$out['mod'].'/'.self::$out['pag']);
+							session_start();
 
-							}else if($tipoPagina===2){
+							if(verificarLogin()){
 
-								$controlador::$pag();
+								if($tipoPagina===1){
+									$permisos = definirTipoUsuario($_SESSION['permisos']);
+									$permisoConsedido = 0;
+									$mod=strtolower(substr($controlador,11,strlen($controlador)-10));
+
+									foreach (self::$tipo[$mod][$metodo][1] as $clavePaginas => $valorPaginas) {
+
+
+
+										foreach ($permisos as $clavePermisos => $valorPermisos) {
+											if($valorPaginas==$valorPermisos){
+												$permisoConsedido = 1;
+												break;
+											}
+											
+										}
+									}
+
 								
+									if($permisoConsedido){
+
+										$controlador::$metodo();
+									}else{
+
+										Accion::cargarPaginaError(403);
+									}
+									
+
+								}else if($tipoPagina===2){
+
+									header('Location:./?mod='.self::$default['mod'].'/'.self::$default['pag']);
+
+								}
+
+							}else{
+								if($tipoPagina===1){
+
+								header('Location:./?mod='.self::$out['mod'].'/'.self::$out['pag']);
+
+								}else if($tipoPagina===2){
+
+									$controlador::$metodo();
+									
+								}
 							}
+
 						}
-
+					}else{
+						header('Location:../?err=404');
 					}
+					
 
-					//if(PGSC('usuario')===0){
-				
-						//require_once(self::$default);
 
 				}else{
+					/*
+					FUNCIONAMIENTO DE ESTE ELSE:
+
+					SI EN LA URL NO SE INDICA NI MODULO NI PAGINA, SE COMPROBARÁ LA SESIÓN.
+
+					SI HAY USUARIO LOGEADO SE REDIRECCIONARÁ A LA PAGINA PRINCIPAL SETEADA AL COMIENZO DE ESTA CLASE EN EL ATRIBUTO "DEFAULT".
+
+					SI NO HAY USUARIO LOGEADO SE REDIRECCIONARÁ A LA PAGINA DE SALIDA SETEADA AL COMIENZO DE ESTA CLASE EN EL ATRIBUTO OUT
+					*/
 					session_start();
 					if(verificarLogin()){
 
@@ -150,6 +151,12 @@
 					}
 				
 				}
+
+				if(!((!isset($_GET['var']))||($_GET['var']=='') || (($_GET['var']!='') && (strpos($_GET['var'],'=')===false)))){
+				
+					$_GET = get_decode($_GET['var']);
+				}
+
 			}
 
 

@@ -1,4 +1,3 @@
-<?php !isset($system)? header('Location:../../'):0;?>
 <title>Festival Hallyu Venezuela</title>
 </head>
 <body>
@@ -16,10 +15,10 @@
 						<center>
 							
 							<form>
-								<input class="form-control" type="text" name="usuario" placeholder="Nombre de Usuario">
-								<input class="form-control" type="password" name="pass" placeholder="Contraseña">
-								<input class="form-control" type="password" name="rep_pas" placeholder="Repetir Contraseña">
-								<select class="form-control">
+								<input class="form-et col-md-12" type="text" name="usuario" placeholder="Nombre de Usuario">
+								<input class="form-et col-md-12" type="password" name="pass" placeholder="Contraseña">
+								<input class="form-et col-md-12" type="password" name="rep_pas" placeholder="Repetir Contraseña">
+								<select class="form-et col-md-12">
 									<option>Rol</option>
 									<option>Root</option>
 									<option>Usuario Estandar</option>

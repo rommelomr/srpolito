@@ -1,4 +1,5 @@
-<title>Principal</title>
+<?php !isset($system)? header('Location:index.php?err=403'):0;?>
+<title>Biblioteca</title>
 </head>
 <body>
 	<div class="container">

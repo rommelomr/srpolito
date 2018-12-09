@@ -4,6 +4,7 @@
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<base href="http://localhost/Biblioteca/">
 
 	<!--
 	<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
@@ -18,18 +19,18 @@
 
 	-->
 
-	<link href="<?php echo back; ?>utilidades/fontawesome/css/all.min.css" rel="stylesheet">
+	<link href="utilidades/fontawesome/css/all.min.css" rel="stylesheet">
 	
-	<link href="<?php echo back; ?>utilidades/MDB/css/bootstrap-material-design.css" rel="stylesheet">
+	<link href="utilidades/MDB/css/bootstrap-material-design.css" rel="stylesheet">
 
-	<script src="<?php echo back; ?>utilidades/polyfill/polyfill.min.js"></script>
-	<script src="<?php echo back; ?>utilidades/jquery/jquery.min.js"></script>
+	<script src="utilidades/polyfill/polyfill.min.js"></script>
+	<script src="utilidades/jquery/jquery.min.js"></script>
 
-	<script src="<?php echo back; ?>utilidades/popper/Popper.js"></script>
+	<script src="utilidades/popper/Popper.js"></script>
 	
-	<script src="<?php echo back; ?>utilidades/MDB/js/bootstrap-material-design.js"></script>
+	<script src="utilidades/MDB/js/bootstrap-material-design.js"></script>
 	
-	<script src="<?php echo back; ?>scripts/funciones.js"></script>
+	<script src="scripts/funciones.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="<?php echo back; ?>estilos/general.css">
+	<link rel="stylesheet" type="text/css" href="estilos/general.css">
 	

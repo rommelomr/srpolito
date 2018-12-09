@@ -1,6 +1,6 @@
 <title>Autenticación</title>
 </head>
-<body style="background-image: url('{{utilidades}}/imagenes/libros.jpg'); background-size: 100%;">
+<body style="background-image: url('utilidades/imagenes/libros.jpg'); background-size: 100%;">
 
 	<div class="container-fluid">
 		<div class="row justify-content-center">

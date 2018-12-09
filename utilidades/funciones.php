@@ -1,8 +1,56 @@
 <?php 
-	
+	function ascii_encode($word){
+		$length = strlen($word);
+		$code = '';
+		for ($i=0; $i < $length; $i++) { 
+			$ord = ord($word[$i]);
+			if($ord<9){
+				$code .= '00'.$ord;
+			}else if($ord < 99){
+				$code .= '0'.$ord;
+			}else{
+				$code .= $ord;
+			}
+		}
+		return $code;
+	}
+
+	function ascii_decode($code){
+		$length = strlen($code);
+		$word = '';
+		for ($i=0; $i < $length ; $i=$i+3) { 
+			$word .= chr(substr($code,$i,3));
+		}
+		return $word;
+	}
+
 	function ruta($mod='',$pag=""){
 		echo './?mod='.$mod.'/'.$pag;
 	}
+	function get_encode($arr){
+		$var = '';
+		foreach ($arr as $key => $value){
+			if($var!=''){
+				$var .= '*';
+			}
+			$var .= $key.'='.ascii_encode($value);
+		}
+		return $var;
+	}
+	function get_decode(){
+		$length = strlen($_GET['var']);
+		$vars = explode('*',$_GET['var']);
+		
+		foreach ($vars as $pos => $var) {
+			//echo $pos.' :'.$var.'<br>';
+			$get = explode('=', $var);
+			$arr[$get[0]] = ascii_decode($get[1]);
+		}
+			return $arr;
+		
+	}
+
+
 	function incluirComponente($arr=null){
 		
 		if (($arr != null)){
@@ -40,7 +88,7 @@
 
 	}
 
-	function error($err='404'){
+	function imagen_error($err='404'){
 		/*funcion que devuelve el nombre de una imagen al azar contenida en una carpeta de imagenes de error... El numero de error de dicha carpeta viene dado por el parametro recibido.
 
 		Ejemplo: Si el parametro recibido es un 404 la cadena retornada sera 

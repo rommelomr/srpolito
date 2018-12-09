@@ -48,10 +48,6 @@
 			$this->set_estado($est);
 
 		}
-
-
-		////////////////////////////////////////////////////////////////////////
-
 		public function crear_usuario(){
 
 			//Método que registra un usuario en la base de datos. Devuelve 1 si lo registró, 0 en caso contrario

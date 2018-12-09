@@ -11,11 +11,11 @@
 <div class="modal fade" id="menu" tabindex="-1" role="dialog" aria-labelledby="menu" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-        <a href="{{ruta('biblioteca','principal')}}" class="btn btn-primary">Inicio</a>
-        <a href="{{ruta('login','gestionar_usuarios')}}" class="btn btn-primary">Gestionar Usuarios</a>
-        <a href="{{ruta('biblioteca','biblioteca')}}" class="btn btn-primary">Biblioteca</a>
-        <a href="{{ruta('biblioteca','prestamos')}}" class="btn btn-primary">Préstamos</a>
-        <a href="{{ruta('biblioteca','registrar')}}" class="btn btn-primary">Registrar Libro</a>
+        <a href="biblioteca/principal" class="btn btn-primary">Inicio</a>
+        <a href="login/gestionar_usuarios" class="btn btn-primary">Gestionar Usuarios</a>
+        <a href="biblioteca/biblioteca" class="btn btn-primary">Biblioteca</a>
+        <a href="biblioteca/prestamos" class="btn btn-primary">Préstamos</a>
+        <a href="biblioteca/registrar" class="btn btn-primary">Registrar Libro</a>
         <button data-dismiss="modal" class="btn btn-primary">Volver</button>
         
       </div>

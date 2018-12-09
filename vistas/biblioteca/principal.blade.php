@@ -1,6 +1,8 @@
 <title>Principal</title>
+
 </head>
 <body>
+	
 	<div class="container">
 
 		<div class="row justify-content-center" style="margin-top: 3%;">
