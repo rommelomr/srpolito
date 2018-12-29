@@ -12,11 +12,52 @@
 			Accion::cargarPagina('comunes',$com);
 		}
 
-		
+		public static function close_modal($arr){
+			/*
+				'id' => id del modal
+				'content' => Contenido del modal
+				'title' => Contenido del titulo
+				'id_agree' => id del boton aceptar
+			*/
+			echo '
+			<div class="modal fade" id="'.$arr['id'].'" tabindex="-1" role="dialog" aria-labelledby="'.$arr['id'].'" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div id="'.$arr['id'].'_header" class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">'.$arr['title'].'</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div id="'.$arr['id'].'_body" class="modal-body">
+			        '.$arr['content'].'
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+			        <button id="'.$arr['id_agree'].'" type="button" class="btn btn-info" data-dismiss="modal">Aceptar</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>';
+		}
 
-		public static function botonEnviar($nom='Ir',$mod='principal',$pag='index', $id='', $cla=''){
+		public static function alerta($var,$arr){
+			
+			if(isset($_COOKIE[code.'_'.$var])){
+				foreach ($arr as $indice => $arr){
+					if($_COOKIE[code.'_'.$var]==$indice){
+						foreach ($arr as $mensaje => $color){
+							echo '<div class="et_alert" style="background:'.$color.'; margin:0; border-radius: 5px 5px 5px 5px;" class="col-12 alert"><center>';
+							echo $mensaje;
+							echo '</center></div>';
+						}	
+					}
+				}
+			}
+		}
+		public static function send_button($nam='Ir',$mod='principal',$pag='index', $id='', $cla=''){
 
-			echo self::botonEnviarSave($nom,$mod,$pag,$id,$cla);
+			echo self::botonEnviarSave($nam,$mod,$pag,$id,$cla);
 		}
 
 		public static function botonEnviarAjax($nom,$con,$met,$id,$cla){
@@ -41,67 +82,21 @@
 
 			  
 		}
-		public static function code(){
+		public static function form_code(){
 			
 
 			//1:generar codigo
-			$codigo=self::codigoRandom();
+			srand();
+			$codigo=rand();
 			//2:guardar en session
-			$_SESSION['etCodeForm']=$codigo;
+			$_SESSION[code.'_code_form']=$codigo;
 			//3:encriptar
 			$codigo = password_hash($codigo,PASSWORD_BCRYPT);
 			//4:imprimir en input hidden
-			echo '<input id="_code" hidden value="'.$codigo.'">';
+			echo '<input id="_code_form" name="_code_form" hidden value="'.$codigo.'">';
 			
 		}
-		public static function codigoRandom(){
 
-			$cad = '';
-			$ite = rand(15,20);
-			for ($i=0; $i < $ite; $i++) { 
-				# code...
-				$min = chr(rand(97,122));
-				$may = chr(rand(65,90));
-				$num = rand(0,9);
-				$rand = rand(0,5);
-				switch($rand){
-					case 0:{
-
-						$cad.= $min.$num.$may;
-						break;
-					}
-					case 1:{
-
-						$cad.= $min.$may.$num;
-						break;
-					}
-					case 2:{
-
-						$cad.= $num.$min.$may;
-						break;
-					}
-					case 3:{
-
-						$cad.= $num.$may.$min;
-						break;
-					}
-					case 4:{
-
-						$cad.= $may.$num.$min;
-						break;
-					}
-					case 5:{
-
-						$cad.= $may.$min.$num;
-						break;
-					}
-
-
-
-				}
-			}
-			return $cad;
-		}	
 	}
 ?>
 

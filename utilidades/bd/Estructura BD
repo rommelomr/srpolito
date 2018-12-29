@@ -1,0 +1,51 @@
+User
+	id
+	nombre
+	apellido
+	user
+	pass
+	status
+	privileges
+	created_at
+
+publicaciones
+	id
+	id_usuario: para indicar al autor de la publicacion
+	bueno
+	regular
+	malo
+	estado: activa o eliminada
+	fecha: fecha en que se hizo la publicación
+
+frases
+	id
+	id_publicacion
+	frase
+	estado: abierta para que la critiquen como frase, cerrada para que la critiquen como meme
+
+Imagenes
+	id
+	nombre
+
+memes
+	id
+	id_publicacion
+
+meme_frase
+	id
+	id_meme
+
+mem_imagen
+	id
+	id_meme
+
+criticas
+	id
+	id_usuario
+	id_publicacion
+	cod_critica: b: bueno n:normal m:malo d:denunciado
+
+observacion
+	id
+	id_critica
+	observacion

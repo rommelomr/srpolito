@@ -61,3 +61,7 @@ function soloNumeros(){
     	this.value = (this.value + '').replace(/[^0-9]/g, '');
 	});
 }
+function url(dir){
+
+	return './?mod='+dir;
+}

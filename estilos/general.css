@@ -2,10 +2,16 @@
 	margin:0;
 	padding:0;
 }
-body{
-	
-	background:#DAD8D5;
-	
+#fondo{
+	position:fixed;
+	top:0;
+	width:100vw;
+	height: 100vh;
+	background:linear-gradient(#ECECEC,#C079FB,#362445);
+	z-index:-1;
+}
+.hidden{
+	display: none;
 }
 .letra-grande{
 	font-size: 500%;
@@ -15,114 +21,155 @@ body{
 }
 
 .boton{
+	transition:0.3s;
 	border-radius: 5px 5px 5px 5px;
 }
-
+.btn-radius{
+	border-radius: 25px 25px 25px 25px;
+}
 .boton-amarillo{
+	transition:0.3s;
 	background:gold;
 	color:brown;
 	border-color: grey;}
 
 .boton-amarillo:hover{
+	transition:0.3s;
 	background:goldenrod;
 	color:white;
 	border-color: grey;}
 
 .boton-azul{
+	transition:0.3s;
 	background:blue;
 	color:white;
 	border-color: grey;}
 
 .boton-azul:hover{
+	transition:0.3s;
 	background:darkblue;
 	color:white;
 	border-color: grey;}
 
 .btn-red{
+	transition:0.3s;
 	background:FireBrick;
 	color:white;
 	border-color: grey;}
 
 .btn-red:hover{
+	transition:0.3s;
 
 	background:DarkRed;
 	color:white;
 	border-color: grey;}
 
 .boton-verde{
+	transition:0.3s;
 	background:green;
 	color:white;
 	border-color: grey;}
 
 .boton-verde:hover{
+	transition:0.3s;
 	background:darkgreen;
 	color:white;
 	border-color: grey;}
 
 .boton-naranja{
+	transition:0.3s;
 	background:orange;
 	color:brown;
 	border-color: grey;}
 
 .boton-naranja:hover{
+	transition:0.3s;
 	background:brown;
 	color:white;
 	border-color: grey;}
 
-.boton-morado{
+.btn-phan-purple{
+	transition:0.3s;
+	background:none;
+	color:purple;
+	border: 3px solid purple;}
+
+.btn-phan-purple:hover{
+	transition:0.3s;
+	background:purple;
+	color:white;
+	border: 3px solid purple;}
+
+.btn-purple{
+	transition:0.3s;
 	background:purple;
 	color:white;
 	border-color: grey;}
 
-.boton-morado:hover{
+.btn-purple:hover{
+	transition:0.3s;
 	background:indigo;
 	color:white;
 	border-color: grey;}
 
 .boton-marron{
+	transition:0.3s;
 	background:brown;
 	color:white;
 	border-color: grey;}
 
 .boton-marron:hover{
+	transition:0.3s;
 	background:black;
 	color:white;
 	border-color: grey;}
 
 .boton-blanco{
+	transition:0.3s;
 	background:white;
 	color:black;
 	border-color: grey;}
 
 .boton-blanco:hover{
-	transition: 0.3s;
+	transition:0.3s;
 	background: grey;}
 
 .boton-negro{
+	transition:0.3s;
 	background:black;
 	color:white;
 	border-color: grey;}
 
 .boton-negro:hover{
-	transition: 0.3s;
+	transition:0.3s;
 	background: grey;
 	color:black;}
 
 
 .boton-mediano{
+	transition:0.3s;
 	
 	padding:3%;}
 
 .boton-grande{
+	transition:0.3s;
 	padding:5%;
 	font-size: 100%;}
 
 .boton-extraGrande{
+	transition:0.3s;
 	padding:10%;
 	font-size: 150%;}
 .form-et{
-	padding:3%;
-	border:1px solid;
-	border-color:grey;
+	margin-top:0.5%;
+	margin-bottom:0.5%;
+	padding:1%;
+	border:1px solid lightgrey;
 	border-radius:5px 5px 5px 5px;
+}
+.border-right{
+	border-right: 3px solid lightgrey;
+}
+.border{
+	border:1px solid lightgrey
 }

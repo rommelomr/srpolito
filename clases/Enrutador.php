@@ -2,40 +2,55 @@
 
 	
 	class Enrutador{
-		//Pagina a la que se redireccionará si el usuario no logueado intenta acceder
-		//a una pagina privada
-		private static $out = ['mod'=>'login','pag'=>'autenticacion'];
+
+		private static $out = ['mod'=>'login','pag'=>'authentication'];
 		
-		private static $default = ['mod'=>'biblioteca','pag'=>'principal'];
+		private static $default = ['mod'=>'main','pag'=>'main'];
 
 
-		private static $tipo = [
+		private static $privileges = [
 
 			/*configurar metodos:
 			
-			0:Páginas Publicas (se puede acceder estando o no logeado)
-			1:Páginas a las que se puede acceder solo si se esta logeado
-			2:Páginas a las que se puede acceder solo si NO se esta logeado
+			0:Páginas Publicoss (se puede acceder estando o no logeado)
+			1:Páginas a los que se puede acceder solo si se esta logeado
+			2:Páginas a los que se puede acceder solo si NO se esta logeado
 
-			Permisos: //Editar
-				0: root
-				1: usuario estandar
 			*/
 
-			'biblioteca'=>[
-				'principal'=>[0],
-				'prestamos'=>[0],
-				'registrar'=>[0],
-				'biblioteca'=>[0]
+			/*
+			Permisos:
+				0: root (1111)
+				1: Creador (0100)
+				2: Reaccionador (0010)
+				3: Crítico (0001)
 
-			],
+			*/
 			'login'=>[
-				'autenticacion'=>[0],
-				'gestionar_usuarios'=>[0],
-
+				'authentication'=>[2],
+				'sign_up'=>[1,
+							[0]],
+				'delete_user'=>[1,
+								[0]],
+				'edit_profile'=>[1],
+				'edit_info_profile'=>[1],
+				'users'=>[1,
+							[0]],
+				'log_in'=>[0],
+				'log_out'=>[1]
 			],
 
+			'main'=>[
+				'main'	=>	[1,
+								[0,1,2,3]],
+				'crear_frase'=>	[1,
+								[0,1]],
+				'guardar_frase'	=>	[1,
+									[0,1]],
+				'eliminar_frase'=>	[1,
+									[0,1]],
 
+			]
 
 		];
 		public static function cargar(){
@@ -48,115 +63,91 @@
 
 			}else{
 
-				if(isset($_GET['con'])){
 
-					$controlador = $_GET['con'];
-					$metodo = $_GET['pag'];
+				$dir = PGSC('mod');
 
-					if(isset(self::$tipo[$controlador][$metodo][0])){
-						$tipoPagina = self::$tipo[$controlador][$metodo][0];
-						$controlador = definirControlador($controlador);
+		
+				if($dir!==0){
 
-						if ($tipoPagina===0){
+					
+					$method=obtenerPagina($dir);
+					$con=obtenerModulo($dir);
+					$pag_privileges = self::$privileges[$con][$method][0];
+					$controller = definirControlador($con);
+					if ($pag_privileges===0){
 
-							$controlador::$metodo();
+						$controller::$method();
 
-						}else{
+					}else{
+						session_start();
+						if(ControllerLogin::get_session('user')!==0){
 
-							session_start();
+							if($pag_privileges === 1){
+								if(!isset(self::$privileges[$con][$method][1])){
 
-							if(verificarLogin()){
+									$controller::$method();
 
-								if($tipoPagina===1){
-									$permisos = definirTipoUsuario($_SESSION['permisos']);
-									$permisoConsedido = 0;
-									$mod=strtolower(substr($controlador,11,strlen($controlador)-10));
-
-									foreach (self::$tipo[$mod][$metodo][1] as $clavePaginas => $valorPaginas) {
-
-
-
-										foreach ($permisos as $clavePermisos => $valorPermisos) {
-											if($valorPaginas==$valorPermisos){
-												$permisoConsedido = 1;
+								}else{
+									
+									$privileges = ControllerLogin::get_session('privileges');
+									$allow_access = 0;
+									foreach (self::$privileges[$con][$method][1] as $privileges_key => $privileges_value){
+											if($privileges[$privileges_value]==1){
+												$allow_access = 1;
 												break;
 											}
-											
-										}
+
 									}
-
-								
-									if($permisoConsedido){
-
-										$controlador::$metodo();
+									if($allow_access){
+										$controller::$method();
 									}else{
-
 										Accion::cargarPaginaError(403);
 									}
 									
-
-								}else if($tipoPagina===2){
-
-									header('Location:./?mod='.self::$default['mod'].'/'.self::$default['pag']);
-
 								}
 
-							}else{
-								if($tipoPagina===1){
+							}else if($pag_privileges===2){
 
-								header('Location:./?mod='.self::$out['mod'].'/'.self::$out['pag']);
+								header('Location:./?mod='.self::$default['mod'].'/'.self::$default['pag']);
 
-								}else if($tipoPagina===2){
-
-									$controlador::$metodo();
-									
-								}
 							}
 
-						}
-					}else{
-						header('Location:../?err=404');
-					}
-					
+						}else{
+							if($pag_privileges===1){
 
+							header('Location:./?mod='.self::$out['mod'].'/'.self::$out['pag']);
+
+							}else if($pag_privileges===2){
+
+								$controller::$method();
+								
+							}
+						}
+
+					}
 
 				}else{
-					/*
-					FUNCIONAMIENTO DE ESTE ELSE:
-
-					SI EN LA URL NO SE INDICA NI MODULO NI PAGINA, SE COMPROBARÁ LA SESIÓN.
-
-					SI HAY USUARIO LOGEADO SE REDIRECCIONARÁ A LA PAGINA PRINCIPAL SETEADA AL COMIENZO DE ESTA CLASE EN EL ATRIBUTO "DEFAULT".
-
-					SI NO HAY USUARIO LOGEADO SE REDIRECCIONARÁ A LA PAGINA DE SALIDA SETEADA AL COMIENZO DE ESTA CLASE EN EL ATRIBUTO OUT
-					*/
 					session_start();
-					if(verificarLogin()){
+					if(ControllerLogin::get_session('user')!==0){
 
 						
-						$controlador = definirControlador(self::$default['mod']);
+						$controller = definirControlador(self::$default['mod']);
 
-						$metodo = self::$default['pag'];
+						$method = self::$default['pag'];
 
-						$controlador::$metodo();
+						$controller::$method();
 
 						
 					}else{
 
-						$controlador = definirControlador(self::$out['mod']);
+						$controller = definirControlador(self::$out['mod']);
 						
-						$metodo = self::$out['pag'];
+						$method = self::$out['pag'];
 
-						$controlador::$metodo();
+						$controller::$method();
 					}
 				
 				}
-
-				if(!((!isset($_GET['var']))||($_GET['var']=='') || (($_GET['var']!='') && (strpos($_GET['var'],'=')===false)))){
-				
-					$_GET = get_decode($_GET['var']);
-				}
-
 			}
 
 

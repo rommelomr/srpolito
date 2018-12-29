@@ -1,4 +1,11 @@
 <?php 
+	function url($dir){
+		return '.?mod='.$dir;
+	}
+	function alert($msg=null){
+		echo '<script>alert("'.$msg.'");</script>';
+
+	}
 	function ascii_encode($word){
 		$length = strlen($word);
 		$code = '';
@@ -24,9 +31,6 @@
 		return $word;
 	}
 
-	function ruta($mod='',$pag=""){
-		echo './?mod='.$mod.'/'.$pag;
-	}
 	function get_encode($arr){
 		$var = '';
 		foreach ($arr as $key => $value){
@@ -50,6 +54,14 @@
 		
 	}
 
+	function dd($arr){
+
+		echo '<pre>';
+		var_dump($arr);
+		echo '</pre>';
+		exit;
+
+	}
 
 	function incluirComponente($arr=null){
 		
@@ -179,19 +191,6 @@
 
 	}
 
-	function verificarLogin($cla='usuario'){
-		if(isset($_SESSION[$cla])){
-
-
-			
-			return 1;
-			
-
-		}
-		return 0;
-		
-
-	}
 	function verificarPermisos($tip){
 
 		session_start();
@@ -214,32 +213,30 @@
 		}
 
 	}
-	function probarVariable($var){
-		echo '<pre>';
-		var_dump($var);
-		echo '</pre>';
-		exit();
-	}
-
-	function definirTipoUsuario($var){
-
-		$largo = strlen($var);
-		for($i=0;$i<$largo;$i++){
-
-			if($var[$i]=='1'){
-				$tipo[$i]=$i;
-			}
-			
-		}
-
-		return $tipo;
-
-	}
-
 	function definirControlador($con){
 		$con = ucwords($con);
-		$con = 'Controlador'.$con;
+		$con = 'Controller'.$con;
 		return $con;
+	}
+	function get_code_form(){
+		if(isset($_SESSION[code.'_code_form'])){
+			return $_SESSION[code.'_code_form'];
+		}else{
+			return null;
+
+		}
+	}
+	function verify_code_form(){
+
+		return password_verify(get_code_form(),PGSC('_code_form'));
+	}
+	function previous_page($arr=null){
+		if(($arr!=[]) && ($arr!=null)){
+			foreach ($arr as $key => $value) {
+				setcookie(code.'_'.$key,$value,time()+5);
+			}
+		}
+		header('Location:'.$_SERVER['HTTP_REFERER']);
 	}
 
 ?>

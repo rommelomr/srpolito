@@ -12,7 +12,7 @@
 	 public static function cargarPagina($mod,$pag,$arr=null){
 			//metodo que arranca el sistema. Si hay un error carga la página de error. Si no carga un módulo (que está seteado en $_POST). Si no hay nada seteado se cargará el modulo principal en la pagina index.php
 			$paths = array(
-				'vistas',
+				'views',
 				'../template/path1',
 				'../template/path2',
 			);
@@ -51,11 +51,5 @@
 
 		    }
 		}
-
-		
-
-
-
 	}
-
 ?>
