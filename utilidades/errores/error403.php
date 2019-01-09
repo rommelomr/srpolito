@@ -21,7 +21,7 @@
 		
 		<form action="." method='post'>
 
-			<?php Crear::botonEnviar('Volver','principal','principal','',"btn btn-light") ?>
+			<?php Crear::send_button('Volver','principal','principal','',"btn btn-light") ?>
 		</form>
 
 	</center>

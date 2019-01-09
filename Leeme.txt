@@ -2,3 +2,126 @@ ETFrame Version 1
 Desarrollado por:
 Rommel Omar Montoya Rodriguez
 email: rommelmontoya97@gmail.com
+
+Formularios:
+
+	Explicar la configuración inicial (constantes y base de datos)
+	Explicar permisologias y clase Router
+	Explicar send_button
+	Explicar Crear::form_code() para formularios y para ajax
+
+	Explicar los Insert sencillos configurando la Clase Base y la  Clase DataBase
+	Explicar los atributos y metodos de la clase Conexion
+
+
+LLAMADAS AJAX (JQUERY)
+
+Para hacer una llamada ajax debe insertarse una direccion ajax en el DOM. Para ello se utiliza el metodo Crear::ajax_dir(). Dicho metodo crea un input escondido (hidden) con el formato:
+	
+	<input id="" controller="" method="" hidden>
+
+En dicha funcion deben definirse mediante un array asociativo el id, el controlador y el metodo que se quiere utilizar para dicha llamada ajax
+
+	Crear::ajax_dir([
+		'id' => 'id_ejemplo',
+		'controller' => 'principal',
+		'method' => 'prueba_ajax'
+	])
+
+//Esto generará en el DOM <input id="id_ejemplo" controller="principal" method="prueba_ajax" hidden>
+
+En el archivo Javascript pueden usarse 4 funciones propias del framework:
+	ETFPost
+	ETFGet
+	ETFPostJson
+	ETFGetJson
+
+Las 4 funciones se utilizarán de la misma manera, la diferencia es que ETFPostJson y ETFGetJson devolverán al JS un JSON. En el metodo php debe usarse la funcion json_encode() al devolver los resultados.
+
+Sea cual sea la funcion que se utilice, deben tomarse las siguientes consideraciones:
+
+Los parametros que reciben son:
+	
+	-data: un array asociativo con los datos que se quieren enviar al servidor
+	-done(): funcion que se ejecutará si la llamada ajax se ejecuta correctamente
+	-error(): funcion que se ejecutará si ocurre un error en la llamada ajax
+
+Uno de los datos que han de enviarse es el id de la direccion ajax creada al comienzo bajo el indice "ajax_dir".
+
+Tomemos como ejemplo la funcion ETFPost
+//CODIGO JS
+	function hecho(a){
+		alert(a);
+	}
+	function error(){
+		alert('Alert que se ejecutará si ocurre un error en la llamada ajax');
+	}
+	ETFPOST({
+		'ajax_dir'	:'id_ejemplo', //tomando como ejemplo el input creado en este mismo tutorial
+		'dato_1'	:valor,
+		'dato_2'	:valor2
+	},hecho,error)
+//CODIGO PHP
+
+Class ControllerPrincipal{
+
+	public static function prueba_ajax(){
+		echo 'Si todo sale bien, este mensaje será visto en el alert de la funcion "hecho()"';
+	}
+
+}
+
+Nota: a este punto debe tenerse configurado en el archivo Router.php el controlador, el metodo y la permisología
+
+Opcionalmente puede agregarse un codigo de seguridad en el dom, para asegurar que la peticion se realiza desde el sistema y no por un tercero:
+
+En el html, al igual que con la direccion ajax, se utiliza el metodo Crear::form_code()
+
+Dicho metodo creará en el DOM un input escondido con el formato:
+
+	<input id="" name="" hidden value="">
+
+Dicho metodo recibe parte del id del input por parámetro. Asi, si se hace
+
+	Crear::form_code()
+
+generará en el DOM <input id="_code_form" name="_code_form" hidden value="*code*">
+ donde *code* es un codigo cifrado con bycript. Este codigo (sin cifrar) será guardado en la variable super_global $_SESSION en su indice "code".
+
+Para utilizarlo en el controlador, bastará con usar la función verify_ajax_code(). dicha funcion comparará el codigo recibido desde la aplicacion y el codigo guardado en la variable super global.
+
+Si la solicitud es realizada desde la aplicación, se setearan correctamente los códigos (los del value del input y el de la variablae $_SESSION) y la función devolverá true.
+
+Utilizando el ejemplo anterior, para utilizar 
+
+Si la solicitud es realizada por un tercero, no se tendrá seteado ningun código, por lo que la función devolverá false.
+
+Así, en el controlador ha de agregarse
+
+Class ControllerPrincipal{
+
+	public static function prueba_ajax(){
+		if(verify_ajax_code()){
+
+			echo 'Si todo sale bien, este mensaje será visto en el alert de la funcion "hecho()"';
+		}
+	}
+
+}
+
+Si el método Crear::form_code() recibe un string como parámetro, este será añadido al id del input al que pertenece el código. De este modo, si se hace
+
+	Crear::form_code('prueba')
+
+creará en el DOM <input id="_code_form_prueba" name="_code_form" hidden value="*code*">
+
+Esto se usa generalmente para cuando se quieren hacer varias solicitudes AJAX en una sola pagina.
+
+Por ende, en la funcion JavaScript ha de hacerse también:
+
+	ETFPOST({
+		'ajax_dir'	:'id_ejemplo', //tomando como ejemplo el input creado en este mismo tutorial
+		'code_id'	:'prueba', //donde prueba es el parametro pasado al metodo Crear::form_code 
+		'dato_1'	:valor,
+		'dato_2'	:valor2
+	},hecho,error)

@@ -1,0 +1,27 @@
+#mensaje-check{
+	transition:0.3s;
+	color:grey;
+}
+#mensaje-check:hover{
+	transition:0.3s;
+	color:black;
+}
+#columna-contenedor-opciones{
+	position:relative;
+}
+#contenedor-cuadro-botones{
+	margin-top:3%;
+}
+#contenedor-cuadro-texto{
+	padding:3%;
+}
+#contenedor-opciones{
+	margin:5%;
+}
+#buscar-frase{
+	margin:1%;
+}
+.font{
+	font-family: arial;
+	font-size: 3vh;
+}

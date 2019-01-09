@@ -48,7 +48,8 @@
 
 							<input id="password" class="form-control" type="password" name="pass" placeholder="Password" required>
 
-							<input id="rep-password" class="form-control" type="password" placeholder="Repeat Password" required>
+							<input id="confirm_password" class="form-control" type="password" placeholder="Repeat Password" required>
+
 							<select id="privileges" class="form-control" name="privileges" style="margin-bottom: 3%;" required>
 								<option value="" disabled selected>Permisos</option>
 					        	<?php if(PGSC('permisos')[0]=='1111'):?>
@@ -57,7 +58,7 @@
 								
 								<?php endif ?>
 								<option value="0001">Creador</option>
-								<option value="0010">Reaccionador</option>
+								<option value="0010">Respondedor</option>
 								<option value="0100">Crítico</option>
 							</select>
 
@@ -192,7 +193,7 @@
 			      <div class="modal-body">
 			        <div class="col-md-4 offset-md-4">
 
-			        	{{Crear::botonEnviarAjax('Guardar','Login','modificar_usuario','guardar','btn btn-primary col-md-12')}}
+			        	{{Crear::send_button('Guardar','Login','modificar_usuario','guardar','btn btn-primary col-md-12')}}
 
 			        </div>
 			      </div>

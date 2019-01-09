@@ -1,14 +1,14 @@
 <?php
 
 	
-	class Enrutador{
+	class Router{
 
 		private static $out = ['mod'=>'login','pag'=>'authentication'];
 		
 		private static $default = ['mod'=>'main','pag'=>'main'];
 
 
-		private static $privileges = [
+		protected static $privileges = [
 
 			/*configurar metodos:
 			
@@ -21,12 +21,13 @@
 			/*
 			Permisos:
 				0: root (1111)
-				1: Creador (0100)
-				2: Reaccionador (0010)
+				1: Creador de frases (0100)
+				2: Respondedor (0010)
 				3: Crítico (0001)
 
 			*/
 			'login'=>[
+				'banned'=>[1],
 				'authentication'=>[2],
 				'sign_up'=>[1,
 							[0]],
@@ -43,21 +44,24 @@
 			'main'=>[
 				'main'	=>	[1,
 								[0,1,2,3]],
-				'crear_frase'=>	[1,
+				'creador_frases'=>	[1,
 								[0,1]],
 				'guardar_frase'	=>	[1,
 									[0,1]],
 				'eliminar_frase'=>	[1,
 									[0,1]],
+				'critico'=>	[1,
+								[0,3]],
+				'reaccionar'=>[1,
+								[0,3]],
+				'cargar_pubs'=>[1,
+								[0,3]],
 
 			]
 
 		];
 		public static function cargar(){
-
-			if(PGSC('petAjax')!==0){
-				PeticionesAjax::cargar();
-			}else if(isset($_GET['err'])){
+			if(isset($_GET['err'])){
 
 				Accion::cargarPaginaError();
 
@@ -67,9 +71,9 @@
 				$dir = PGSC('mod');
 
 		
-				if($dir!==0){
+				if($dir!==null){
 
-					
+										
 					$method=obtenerPagina($dir);
 					$con=obtenerModulo($dir);
 					$pag_privileges = self::$privileges[$con][$method][0];
@@ -80,24 +84,24 @@
 
 					}else{
 						session_start();
-						if(ControllerLogin::get_session('user')!==0){
 
+						if(ControllerLogin::get_session('user')!==0){
+							ControllerLogin::protect_actions();
+
+							if(($controller=='ControllerLogin') && ($method=='log_out') && (ControllerLogin::get_session('status')==2)){
+
+								$controller::$method();
+
+							}else if(ControllerLogin::get_session('status')==2){
+								ControllerLogin::banned();exit;
+							}
 							if($pag_privileges === 1){
 								if(!isset(self::$privileges[$con][$method][1])){
 
 									$controller::$method();
 
 								}else{
-									
-									$privileges = ControllerLogin::get_session('privileges');
-									$allow_access = 0;
-									foreach (self::$privileges[$con][$method][1] as $privileges_key => $privileges_value){
-											if($privileges[$privileges_value]==1){
-												$allow_access = 1;
-												break;
-											}
-
-									}
+									$allow_access = self::verify_user_privilges($con,$method);
 									if($allow_access){
 										$controller::$method();
 									}else{
@@ -129,7 +133,10 @@
 				}else{
 					session_start();
 					if(ControllerLogin::get_session('user')!==0){
-
+						ControllerLogin::protect_actions();
+						if(ControllerLogin::get_session('status')==2){
+							ControllerLogin::banned();exit;
+						}
 						
 						$controller = definirControlador(self::$default['mod']);
 
@@ -153,10 +160,15 @@
 
 		}
 
-		public static function ajax(){
+		public static function verify_user_privilges($con,$method){
+			$privileges = ControllerLogin::get_session('privileges');
+			foreach (self::$privileges[$con][$method][1] as $privileges_key => $privileges_value){
+				if($privileges[$privileges_value]==1){
+					return true;
+				}
 
-			echo 'Peticion Ajax';
-			
+			}
+			return false;
 		}
 
 

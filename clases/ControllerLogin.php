@@ -1,22 +1,26 @@
 <?php
 	class ControllerLogin{
+		public static function banned(){
+			Accion::cargarPagina('login','banned');
+			
+		}
 		public static function authentication(){
 			Accion::cargarPagina('login','authentication');
 		}
 
 		public static function edit_info_profile(){
 
+			if($_POST['user']==''){
+				previous_page(['up'=>2]);//Nombr de usuario vacio
+				exit;
+			}
 			$con = new Conexion;
 			$user = $_POST['user'];
-			$nombre = $_POST['nombre'];
-			$apellido = $_POST['apellido'];
 			$pass = '';
 
 			$arr = array(
 					'active_user' => ControllerLogin::get_session('user'),
 					'user' => $_POST['user'],
-					'nombre' => $_POST['nombre'],
-					'apellido' => $_POST['apellido']
 				);
 
 			if($_POST['pass']!=''){
@@ -24,9 +28,8 @@
 				$arr['pass'] = password_hash($_POST['pass'],PASSWORD_BCRYPT);
 			}
 
-			if($con -> enviar('update users set  user = :user, nombre = :nombre, apellido = :apellido'.$pass.' where user = :active_user',
-				$arr
-			)){
+			if($con -> enviar('update users set  user = :user'.$pass.' where user = :active_user',$arr)){
+				self::safe_session('user',$_POST['user']);
 				previous_page(['up'=>1]);
 			}else{
 				previous_page(['up'=>0]);
@@ -82,12 +85,22 @@
 
 
 		}
-		public static function safe_session($key,$val){
-			$_SESSION[code.'_'.$key] = $val;
+		public static function safe_session($key,$val,$pos=null){
+			if($pos!=null){
+
+				$_SESSION[code.'_'.$key][$pos] = $val;
+			}else{
+
+				$_SESSION[code.'_'.$key] = $val;
+			}
 		}
-		public static function get_session($key){
+		public static function get_session($key,$pos=null){
 
 			if (isset($_SESSION[code.'_'.$key])){
+				if($pos!==null){
+
+					return $_SESSION[code.'_'.$key][$pos];
+				}
 				return $_SESSION[code.'_'.$key];
 			}
 			return 0;
@@ -102,6 +115,52 @@
 
 			return 0;
 
+		}
+		public static function protect_actions($ret=''){
+
+			//seteo la hora actual (la hora a la que se ralizó la accion)
+			$current_hour = new DateTime(date('H:i:s'));
+
+			//obtengo la hora de la ultima accion
+			//dd($acum_intervals->format('H:i:s'));
+			$hour_last_action = new DateTime(self::get_session('actions',0));
+
+			$action_count = self::get_session('actions',2);
+			
+			//a la hora actual le resto la hora de la ultima accion para obtener la diferencia de tiempo entre una y otra
+			$difference_interval = $current_hour->diff($hour_last_action);
+			
+			$difference_interval = explode(':',$difference_interval->format('%H:%I:%S'));
+			
+			$acum_intervals = new DateTime(self::get_session('actions',1));
+
+			$acum_intervals->modify('+'.$difference_interval[0].' hours');
+			$acum_intervals->modify('+'.$difference_interval[1].' minute');
+			$acum_intervals->modify('+'.$difference_interval[2].' second');
+			if($action_count==10){
+				if(strtotime($acum_intervals->format('H:i:s'))<=strtotime('00:00:40')){
+					self::safe_session('status',2);
+					$con = new Database;
+					if($con->update('users',
+										['status'=>2],
+										['id'=>['=',self::get_session('id')]])){
+						if($ret=='ajax'){
+							echo 'banned';
+						}else{
+
+							echo json_encode('banned');
+						}
+					}
+				
+					self::safe_session('actions',[$current_hour->format('H:i:s'),'00:00:00',0]);
+				}else{
+					self::safe_session('actions',[$current_hour->format('H:i:s'),'00:00:00',0]);
+				}
+			}else{
+
+				$action_count++;
+				self::safe_session('actions',[$current_hour->format('H:i:s'),$acum_intervals->format('H:i:s'),$action_count]);
+			}
 		}
 		public static function log_in(){
 			
@@ -125,32 +184,48 @@
 						self::safe_session('user',$datos[0]['user']);
 						self::safe_session('privileges',$datos[0]['privileges']);
 						self::safe_session('status',$datos[0]['status']);
+						self::safe_session('actions',[date('H:i:s'),'00:00:00',0]);
 
 						header('Location:.');
 
 
 					}else{
 
-						header('Location:'.url('login/authentication').'?&log=2');
+						header('Location:'.url('login/authentication').'&log=2');
 						
 					}
 				}else{
 
-					header('Location:'.url('login/authentication').'?&log=1');
+					header('Location:'.url('login/authentication').'&log=1');
 					
 				}
 			}else{
 
-				header('Location:'.url('login/authentication').'?&log=0');
+				header('Location:'.url('login/authentication').'&log=0');
 			}
 
 		}
 		public static function sign_up(){
+			$arr = [
+				'nombre'=>$_POST['nombre'],
+				'apellido'=>$_POST['apellido'],
+				'user'=>$_POST['user'],
+				'pass'=>password_hash($_POST['pass'],PASSWORD_BCRYPT),
+				'privileges'=>$_POST['privileges'],
+				'created_at'=>date('Y-m-d'),
+				'status'=>1
+				];
+			if($_POST['privileges']==='0100'){
+				$tabla = 'creadores_frases';
+			}else if($_POST['privileges']==='0010'){
+				$tabla = 'respondedores';
+			}else if($_POST['privileges']==='0001'){
+				$tabla = 'criticos';
+				
+			}
 
-			if($db = Database::insert('User',
-				['created_at'=>date('Y-m-d'),
-				'status'=>1]
-			)){
+			$con = new Conexion();
+			if($con -> enviar('insert into users (nombre,apellido,user,pass,privileges,status,created_at) values(:nombre,:apellido,:user,:pass,:privileges,:status,:created_at); insert into '.$tabla.' (id_usuario) values((select max(id) as id from users))',$arr)){
 				previous_page(['reg'=>1]);
 			}else{
 				previous_page(['reg'=>0]);

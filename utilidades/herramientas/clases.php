@@ -5,7 +5,7 @@
 		var_dump($par);
 		echo '</pre>';
 	}
-
+	dd($_POST);
 	$clase= '	';
 
 	if(isset($_POST['abstracta'])){
@@ -40,14 +40,17 @@
 					case 'publico':{
 
 						$atributos[$i]='public ';
+						break;
 					}
 					case 'privado':{
 						$atributos[$i]='private ';
 
+						break;
 					}
 					case 'protegido':{
 						$atributos[$i]='protected ';
 
+						break;
 					}
 
 				}

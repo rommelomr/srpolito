@@ -2,12 +2,23 @@
 	class DataBase{
 		public static function set_values($arr=null){
 			unset($_POST['mod']);
-			$info = $_POST;
+			$info = $_POST; //Se hace esto por si los valores vienen de un formulario (Por post) y se guarda en la variable $info los posibles datos
 			if($arr!=null){
 				foreach ($arr as $key => $value) {
 					$info[$key]=$value;
 				}
 			}
+			//Se agregan a la variable los valores recibidos por parámetro, tal que quedaría
+			/*
+				$info[
+				...
+				columna_1=>valor_1,
+				columna_2=>valor_2,
+				columna_3=>valor_3,
+				columna_4=>valor_4,
+				...
+				];
+			*/
 			return $info;
 		}
 		public static function insert($Class,$arr=null){
@@ -17,15 +28,18 @@
 
 			$columns = '';		
 			$values = '';
+			//se iteran las columnas de la tabla recibidas desde su clase ya configurada
 			foreach ($class_attrs as $key => $value) {
 				if($key===0){
 
-					$columns .= $value;
-					$values .= ':'.array_keys($info,$info[$value],true)[0];
-
+					$columns .= $value;//variable que guardará las columnas para la sentencia sql
+					$values .= ':'.$value;
+//					$values .= ':'.array_keys($info,$info[$value],true)[0];
+					//variable que guardará los values para la sentencia sql... La función retorna el nombre de la columna 
 				}else{
 					$columns .= ', '.$value;
-					$values .= ', :'.array_keys($info,$info[$value],true)[0];
+					$values .= ', :'.$value;
+//					$values .= ', :'.array_keys($info,$info[$value],true)[0];
 				}
 				if($value=='pass'){
 
@@ -35,6 +49,7 @@
 				}
 
 			}
+			return 'insert into '.$Class::$table.' ('.$columns.') values('.$values.')';
 			$con = new Conexion();
 			return $con -> enviar('insert into '.$Class::$table.' ('.$columns.') values('.$values.')',$arr);
 			

@@ -4,7 +4,6 @@
 
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<base href="http://localhost/Biblioteca/">
 
 		<link href="utilidades/fontawesome/css/all.min.css" rel="stylesheet">
 		

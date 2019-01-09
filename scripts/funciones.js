@@ -1,59 +1,51 @@
-function ETFPost(datos,hecho,error){
-	if($('#_code').val()!=undefined){
-		datos['code']=$('#_code').val();
-
+function set_data(data){
+	var suf = '';
+	if(data['code_id']!=undefined){
+		var suf = '_'+data['code_id'];
 	}
-	datos['con']=$('#met').val();
-	
-	$.post("ajax.php",datos).done(hecho).fail(error)
+	if($('#_code_form'+suf).val()!=undefined){
+		data['code']=$('#_code_form'+suf).val();
+	}
+	var ajax_dir = $('#'+data['ajax_dir']);
+	data['controller']=ajax_dir.attr('controller');
+	data['method']=ajax_dir.attr('method');
+	return data;
+}
+function ETFPost(data,done_function,error_function){
+	data = set_data(data);
+	$.post("ajax.php",data).done(done_function).fail(error_function)
 
 }
-function ETFGet(datos,hecho,error){
-	if($('#_code').val()!=undefined){
-		datos['code']=$('#_code').val();
+function ETFGet(data,done_function,error_function){
 
-	}
-	
-	datos['con']=$('#met').val();
+	data = set_data(data);
 
-	$.get("ajax.php",datos,hecho).fail(error)
+	$.get("ajax.php",data,done_function).fail(error_function)
 
 }
-function ETFPostJson(datos,hecho,error){
+function ETFPostJson(data,done_function,error_function){
 	
-	if($('#_code').val()!=undefined){
-		datos['code']=$('#_code').val();
-	}
-
-	datos['con']=$('#met').val();
-	//recibe 'login/prueba'
+	data = set_data(data);
 	$.ajax({
 		url:"ajax.php",
 		type:'post',
 		dataType:'json',
-		data:datos,
-		success:hecho
+		data:data,
+		success:done_function
 	})
-	.fail(error)
+	.fail(error_function)
 
 }
-function ETFGetJson(datos,hecho,error){
-	
-	if($('#_code').val()!=undefined){
-		datos['code']=$('#_code').val();
-
-	}
-	datos['con']=$('#met').val();
-	
+function ETFGetJson(data,done_function,error_function){
+	data = set_data(data);
 	$.ajax({
 		url:"ajax.php",
 		type:'get',
 		dataType:'json',
-		data:datos,
-		success:hecho
+		data:data,
+		success:done_function
 	})
-	.fail(error)
-
+	.fail(error_function);
 }
 function soloNumeros(){
 	
@@ -64,4 +56,11 @@ function soloNumeros(){
 function url(dir){
 
 	return './?mod='+dir;
+}
+function fade_out_alerts(time){
+	if($('.et_alert').length!=0){
+		setTimeout(function(){
+			$('.et_alert').fadeOut(600);
+		},time);
+	}
 }

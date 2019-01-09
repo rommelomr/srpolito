@@ -124,11 +124,11 @@
 	function PGSC($cad=null){
 		if($cad==null){
 
-			return 0;
+			return null;
 
 		}else{
-
 			if(isset($_POST[$cad])){
+				
 				return $_POST[$cad];
 
 			}else if(isset($_GET[$cad])){
@@ -139,7 +139,7 @@
 			}else if(isset($_COOKIE[$cad])){
 				return $_COOKIE[$cad];
 			}else{
-				return 0;
+				return null;
 			}
 		}
 
@@ -218,25 +218,68 @@
 		$con = 'Controller'.$con;
 		return $con;
 	}
-	function get_code_form(){
-		if(isset($_SESSION[code.'_code_form'])){
-			return $_SESSION[code.'_code_form'];
+	function get_code_form($id=''){
+
+		if(isset($_SESSION[code.'_code_form_'.$id])){
+			return $_SESSION[code.'_code_form_'.$id];
 		}else{
 			return null;
 
 		}
 	}
-	function verify_code_form(){
-
-		return password_verify(get_code_form(),PGSC('_code_form'));
+	function verify_code_form($id=''){
+		return password_verify(get_code_form($id),PGSC('_code_form'));
 	}
+	function verify_ajax_code($id=''){
+		
+		
+		return password_verify(get_code_form($id),PGSC('code'));
+	}
+
 	function previous_page($arr=null){
-		if(($arr!=[]) && ($arr!=null)){
-			foreach ($arr as $key => $value) {
-				setcookie(code.'_'.$key,$value,time()+5);
+		if(!isset($_SERVER['HTTP_REFERER'])){
+			Accion::cargarPaginaError(403);
+		}else{
+			
+			if(($arr!=[]) && ($arr!=null)){
+				foreach ($arr as $key => $value) {
+					setcookie(code.'_'.$key,$value,time()+5);
+				}
+			}
+			header('Location:'.$_SERVER['HTTP_REFERER']);
+		}
+	}
+	function file_validate($arr){
+		/*
+			$arr[
+
+				input_name
+				size: max file size 
+				type: image/
+			];
+
+			retornos: 
+				0 si el tipo de archivo no es el requerido
+				1 si excede el tamaño
+				2 si el archivo es correcto
+		*/
+		$valid_type = false;
+		switch($arr['type']){			
+			case 'image':{
+				if(explode('/',mime_content_type($arr['file'][$arr['input_name']]['tmp_name']))[0]=='image'){
+					$valid_type = true;
+				}else{
+					return 0;
+				}
+				break;
 			}
 		}
-		header('Location:'.$_SERVER['HTTP_REFERER']);
-	}
 
+		if($valid_type && $arr['file'][$arr['input_name']]['size']<=$arr['size'] ){
+
+			return 2;
+		}
+		return 1;
+
+	}
 ?>

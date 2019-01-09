@@ -33,4 +33,5 @@
 	<script src="scripts/funciones.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="estilos/general.css">
+	<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 	

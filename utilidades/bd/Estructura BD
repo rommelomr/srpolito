@@ -14,17 +14,21 @@ publicaciones
 	bueno
 	regular
 	malo
+	denunciada
 	estado: activa o eliminada
-	fecha: fecha en que se hizo la publicación
+	tipo: meme o frase
+	fecha: fecha en que se hizo la publicación (datetime)
 
 frases
 	id
 	id_publicacion
 	frase
-	estado: abierta para que la critiquen como frase, cerrada para que la critiquen como meme
+	estado: 1 activo o 0 eliminado
+	tipo: f para que la critiquen como frase, m para que la critiquen como meme
 
 Imagenes
 	id
+	id_publicacion
 	nombre
 
 memes

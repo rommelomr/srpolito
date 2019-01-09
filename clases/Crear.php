@@ -60,16 +60,22 @@
 			echo self::botonEnviarSave($nam,$mod,$pag,$id,$cla);
 		}
 
+		public static function ajax_dir($arr){
+			/*
+				id
+				controller
+				method
+			*/
+			echo '<input id="'.$arr['id'].'" hidden controller="'.$arr['controller'].'" method="'.$arr['method'].'">';
+		}
 		public static function botonEnviarAjax($nom,$con,$met,$id,$cla){
 
 			echo self::botonEnviarAjaxSave($nom,$con,$met,$id,$cla);
 
 		}
-		public static function botonEnviarAjaxSave($nom,$con,$met,$id,$cla){
-		//public static function botonEnviarAjaxSave($id,$cla,$con,$met){
+		public static function ajax_send_button($nom,$con,$met,$id,$cla){
 
-			return '<input id="met" hidden value="'.$con.'/'.$met.'">
-					<input type="submit" id="'.$id.'"  class="'.$cla.'"value="'.$nom.'">';
+			return '<input type="submit" id="'.$id.'"  class="'.$cla.'"value="'.$nom.'">';
 
 		}
 
@@ -82,18 +88,18 @@
 
 			  
 		}
-		public static function form_code(){
+		public static function form_code($id){
 			
 
 			//1:generar codigo
 			srand();
 			$codigo=rand();
 			//2:guardar en session
-			$_SESSION[code.'_code_form']=$codigo;
+			$_SESSION[code.'_code_form_'.$id]=$codigo;
 			//3:encriptar
 			$codigo = password_hash($codigo,PASSWORD_BCRYPT);
 			//4:imprimir en input hidden
-			echo '<input id="_code_form" name="_code_form" hidden value="'.$codigo.'">';
+			echo '<input id="_code_form_'.$id.'" name="_code_form" hidden value="'.$codigo.'">';
 			
 		}
 
